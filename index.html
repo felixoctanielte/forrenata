@@ -318,6 +318,23 @@
         setTimeout(()=>h.remove(),4000);
       }
     }
+
+      // === 🐰 KELINCI GERAK-GERAK AUTO ===
+    const bunnyEmojis = ['🐰','🐇','🥕','✨'];
+    function spawnBunny() {
+      const bunny = document.createElement('div');
+      bunny.className = 'bunny';
+      bunny.textContent = bunnyEmojis[Math.floor(Math.random()*bunnyEmojis.length)];
+      bunny.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+      bunny.style.bottom = Math.random() * 80 + 'px';
+      bunny.style.animationDuration = (5 + Math.random() * 4) + 's';
+      document.body.appendChild(bunny);
+      setTimeout(() => bunny.remove(), 6000);
+    }
+
+    // munculkan kelinci tiap 1.5 detik
+    setInterval(spawnBunny, 1000);
   </script>
 </body>
 </html>
+
