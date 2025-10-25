@@ -139,6 +139,52 @@
         font-size: 0.75rem;
       }
     }
+      .bunny-run {
+    position: fixed;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.95;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bunny-body {
+    font-size: clamp(1.8rem, 3vw, 3rem); /* responsif */
+    animation: hop 0.6s ease-in-out infinite;
+  }
+
+  .bunny-shadow {
+    width: clamp(25px, 4vw, 50px);
+    height: clamp(5px, 0.8vw, 8px);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: shadowHop 0.6s ease-in-out infinite;
+  }
+
+  @keyframes hop {
+    0%, 100% { transform: translateY(0) scaleX(1); }
+    50% { transform: translateY(-20px) scaleX(1.1); }
+  }
+
+  @keyframes shadowHop {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(0.8); opacity: 0.3; }
+  }
+
+  @keyframes runRight {
+    0% { left: -80px; transform: scaleX(1); }
+    100% { left: 110vw; transform: scaleX(1); }
+  }
+
+  @keyframes runLeft {
+    0% { right: -80px; transform: scaleX(-1); }
+    100% { right: 110vw; transform: scaleX(-1); }
+  }
+
   </style>
 </head>
 
@@ -352,21 +398,41 @@
       }
     }
 
-    // === 🐰 KELINCI GERAK-GERAK AUTO ===
-    const bunnyEmojis = ['🐰','🐇','🥕','✨'];
-    function spawnBunny() {
-      const bunny = document.createElement('div');
-      bunny.className = 'bunny';
-      bunny.textContent = bunnyEmojis[Math.floor(Math.random()*bunnyEmojis.length)];
-      bunny.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-      bunny.style.bottom = Math.random() * 80 + 'px';
-      bunny.style.animationDuration = (5 + Math.random() * 4) + 's';
-      document.body.appendChild(bunny);
-      setTimeout(() => bunny.remove(), 6000);
-    }
+  <!-- 🐇✨ KELINCI BERLARI RESPONSIF -->
 
-    // munculkan kelinci tiap 1.5 detik
-    setInterval(spawnBunny, 1000);
+
+
+
+  const bunnyEmojis = ['🐰', '🐇', '🐰🥕', '✨🐇', '🐇💨'];
+
+  function spawnRunningBunny() {
+    const container = document.createElement('div');
+    container.className = 'bunny-run';
+
+    const bunny = document.createElement('div');
+    bunny.className = 'bunny-body';
+    bunny.textContent = bunnyEmojis[Math.floor(Math.random() * bunnyEmojis.length)];
+
+    const shadow = document.createElement('div');
+    shadow.className = 'bunny-shadow';
+
+    container.appendChild(bunny);
+    container.appendChild(shadow);
+
+    const direction = Math.random() > 0.5 ? 'right' : 'left';
+    const posY = Math.random() * (window.innerHeight * 0.7) + 30;
+    container.style.top = `${posY}px`;
+    container.style.animationDuration = `${6 + Math.random() * 4}s`;
+    container.style.animationName = direction === 'right' ? 'runRight' : 'runLeft';
+
+    document.body.appendChild(container);
+    setTimeout(() => container.remove(), 11000);
+  }
+
+  // spawn tiap 2.5 detik
+  setInterval(spawnRunningBunny, 2500);
+
+
   </script>
 </body>
 </html>
