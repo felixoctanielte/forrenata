@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Renata 🎂</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      background: radial-gradient(circle at center, #0a0a0a 40%, #1a1a1a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Press Start 2P', cursive;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .screen-text {
+      font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+      color: #00ff66;
+      text-shadow: 0 0 6px #00ff66, 0 0 10px #00ff66;
+      animation: blink 1.2s infinite alternate;
+      text-align: center;
+    }
+    @keyframes blink { from { opacity: 1; } to { opacity: 0.5; } }
+
+    .gameboy {
+      box-shadow: 0 0 30px rgba(255,255,255,0.1), inset 0 0 20px rgba(0,0,0,0.4);
+      animation: floaty 4s ease-in-out infinite;
+      width: clamp(260px, 85vw, 400px);
+      padding: clamp(1rem, 2vw, 1.5rem);
+    }
+    @keyframes floaty { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+
+    .btn {
+      transition: transform 0.15s ease, box-shadow 0.15s;
+    }
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+    }
+
+    .heart {
+      position: fixed;
+      color: #ff6fae;
+      font-size: 1.2rem;
+      animation: float 4s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0); opacity: 1 }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0 }
+    }
+
+    /* RESPONSIVE OVERLAY */
+    #overlayContent {
+      width: 90%;
+      max-width: 420px;
+    }
+
+    /* GALLERY SLIDER */
+    .book-container {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #book {
+      display: flex;
+      transition: transform 0.7s ease-in-out;
+      width: 100%;
+      height: 100%;
+    }
+
+    #book img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: black;
+      border-radius: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .gameboy {
+        border-width: 2px;
+        padding: 0.8rem;
+      }
+      #overlayContent {
+        padding: 1rem;
+        max-height: 85vh;
+      }
+      .btn {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gameboy bg-gray-200 rounded-3xl border-4 border-gray-400">
+    <div class="flex justify-between mb-3">
+      <div class="text-xs text-red-600 font-bold">xonc</div>
+      <div class="text-xs text-gray-600 font-bold">R</div>
+    </div>
+
+    <div class="bg-gray-900 rounded-md border-4 border-black flex flex-col justify-center items-center mb-4 shadow-inner h-32 sm:h-36 md:h-40">
+      <p class="screen-text">Happy Birthday, Renata!<br>Press Start 🎮</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <button id="messageBtn" class="btn bg-blue-500 text-white py-2 rounded-md shadow-lg hover:bg-blue-600">MESSAGE</button>
+      <button id="galleryBtn" class="btn bg-red-500 text-white py-2 rounded-md shadow-lg hover:bg-red-600">GALLERY</button>
+      <button id="musicBtn" class="btn bg-purple-500 text-white py-2 rounded-md shadow-lg hover:bg-purple-600">MUSIC</button>
+      <button id="loveBtn" class="btn bg-pink-500 text-white py-2 rounded-md shadow-lg hover:bg-pink-600">LOVE 💖</button>
+    </div>
+
+    <div class="flex justify-center mb-3">
+      <div class="relative bg-gray-700 w-16 h-16 rounded">
+        <div class="absolute inset-x-0 top-0 h-5 bg-gray-900 rounded-t"></div>
+        <div class="absolute inset-x-0 bottom-0 h-5 bg-gray-900 rounded-b"></div>
+        <div class="absolute inset-y-0 left-0 w-5 bg-gray-900 rounded-l"></div>
+        <div class="absolute inset-y-0 right-0 w-5 bg-gray-900 rounded-r"></div>
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-4 mb-3">
+      <button class="btn bg-red-500 w-10 h-10 rounded-full shadow-md text-white font-bold">B</button>
+      <button class="btn bg-red-500 w-10 h-10 rounded-full shadow-md text-white font-bold">A</button>
+    </div>
+
+    <div class="flex justify-center gap-6">
+      <button id="selectBtn" class="btn bg-gray-400 px-3 py-1 rounded-md text-xs">SELECT</button>
+      <button id="startBtn" class="btn bg-gray-400 px-3 py-1 rounded-md text-xs">START</button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+    <div id="overlayContent" class="bg-white text-black rounded-lg p-6 text-center overflow-y-auto max-h-[90vh] shadow-xl">
+      <h2 id="overlayTitle" class="text-xl mb-4 font-bold"></h2>
+      <div id="overlayBody" class="mb-4"></div>
+      <button id="closeOverlay" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop></audio>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const overlayBody = document.getElementById('overlayBody');
+    const closeOverlay = document.getElementById('closeOverlay');
+    const bgMusic = document.getElementById('bgMusic');
+    let currentTrack = null;
+
+    const tracks = [
+      { title: '🎂 Happy Birthday – Mindseye', url: 'music/hpy.mp3' },
+      { title: '💖 Sempurna – Local', url: 'music/phy2.mp3' }
+    ];
+
+    function playMusic(url) {
+      if (currentTrack === url && !bgMusic.paused) return;
+      bgMusic.src = url;
+      bgMusic.play();
+      currentTrack = url;
+    }
+
+    function openOverlay(title, content) {
+      overlayTitle.textContent = title;
+      overlayBody.innerHTML = content;
+      overlay.classList.remove('hidden');
+    }
+
+    closeOverlay.addEventListener('click', () => overlay.classList.add('hidden'));
+
+    // Message
+    document.getElementById('messageBtn').addEventListener('click', () =>
+      openOverlay('Birthday Message 🎉', `
+        <p class="mb-3">Happy Birthday, Renata! 🎂</p>
+        <p class="mb-3">May your day be as bright, sweet, and amazing as your smile 💖</p>
+        <p class="text-sm italic text-gray-700">"You make the world a better place just by being in it."</p>
+        <p class="mb-3">Don’t stress hahaha too much about college stuff. You got this, and you’re doing great!🌟 </p>
+      `)
+    );
+
+    // Gallery Slide
+    document.getElementById('galleryBtn').addEventListener('click', () => {
+      openOverlay('Memory Gallery', `
+        <div class="book-container mx-auto">
+          <div id="book">
+            <img src="gallery/image1.jpg" alt="Memory 1">
+            <img src="gallery/image2.jpg" alt="Memory 2">
+            <img src="gallery/image3.jpg" alt="Memory 3">
+            <img src="gallery/image4.jpg" alt="Memory 4">
+          </div>
+        </div>
+        <div class="flex justify-center gap-4 mt-4">
+          <button id="prevPage" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Prev</button>
+          <button id="nextPage" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Next</button>
+        </div>
+      `);
+
+      const book = document.getElementById('book');
+      const slides = book.querySelectorAll('img');
+      let currentPage = 0;
+
+      function updateSlide() {
+        book.style.transform = `translateX(-${currentPage * 100}%)`;
+      }
+
+      document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage = (currentPage + 1) % slides.length;
+        updateSlide();
+      });
+
+      document.getElementById('prevPage').addEventListener('click', () => {
+        currentPage = (currentPage - 1 + slides.length) % slides.length;
+        updateSlide();
+      });
+    });
+
+    // Music
+    document.getElementById('musicBtn').addEventListener('click', () => {
+      openOverlay('Music 🎵', `
+        <p class="mb-3">Choose your vibe, Renata 🎧</p>
+        <div id="musicList" class="flex flex-col gap-2"></div>
+      `);
+      const musicList = document.getElementById('musicList');
+      tracks.forEach(track => {
+        const btn = document.createElement('button');
+        btn.className = 'bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600';
+        btn.textContent = (currentTrack === track.url && !bgMusic.paused)
+          ? `⏸️ ${track.title}` : `▶️ ${track.title}`;
+        btn.addEventListener('click', () => {
+          if (currentTrack === track.url && !bgMusic.paused) {
+            bgMusic.pause();
+            btn.textContent = `▶️ ${track.title}`;
+          } else {
+            playMusic(track.url);
+            document.querySelectorAll('#musicList button')
+              .forEach(b => b.textContent = `▶️ ${b.textContent.slice(3)}`);
+            btn.textContent = `⏸️ ${track.title}`;
+          }
+        });
+        musicList.appendChild(btn);
+      });
+    });
+
+    // Love
+    document.getElementById('loveBtn').addEventListener('click', () => {
+      openOverlay('For Renata 💖', `
+        <p class="mb-3 text-lg">Renata, you are truly special 💫</p>
+        <p class="text-sm text-gray-700 italic">"If smiles were stars, yours would light up the whole galaxy."</p>
+        <p class="mt-4">Thank you for being you — kind, lovely, and full of life 🌷</p>
+      `);
+      createHearts();
+    });
+
+    // Start & Select
+    document.getElementById('startBtn').addEventListener('click', () => {
+      openOverlay('🎉 Let’s Celebrate! 🎉', `
+        <p class="mb-3">Welcome to your special day, Renata! 💖<br>Enjoy the surprises — messages, music, memories, and love!</p>
+        <p class="text-sm italic text-gray-700">You deserve all the happiness in the world 🌸</p>
+      `);
+      startConfetti();
+    });
+
+    document.getElementById('selectBtn').addEventListener('click', () => {
+      document.querySelector('.gameboy').classList.add('bg-pink-200');
+      document.body.style.background = 'radial-gradient(circle at center, #ffb6c1 30%, #ff69b4 100%)';
+      playMusic('music/phy2.mp3');
+    });
+
+    function startConfetti() {
+      const duration = 3000;
+      const end = Date.now() + duration;
+      const colors = ['#FFC0CB','#FF69B4','#FFD700','#00FFCC','#FF6B6B'];
+      (function frame() {
+        const s = document.createElement('div');
+        s.style.position = 'fixed';
+        s.style.width = '8px';
+        s.style.height = '8px';
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.top = '0px';
+        s.style.left = Math.random()*window.innerWidth+'px';
+        s.style.opacity = '0.8';
+        s.style.borderRadius = '50%';
+        s.style.transition = 'transform 3s linear, opacity 3s linear';
+        document.body.appendChild(s);
+        setTimeout(()=>{s.style.transform=`translateY(${window.innerHeight}px) rotate(${Math.random()*360}deg)`;s.style.opacity='0';},100);
+        setTimeout(()=>s.remove(),3000);
+        if(Date.now()<end)requestAnimationFrame(frame);
+      })();
+    }
+
+    function createHearts() {
+      for (let i=0;i<15;i++) {
+        const h=document.createElement('div');
+        h.className='heart';
+        h.style.left=Math.random()*window.innerWidth+'px';
+        h.style.bottom='0px';
+        h.style.animationDuration=(3+Math.random()*3)+'s';
+        h.textContent='💖';
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+      }
+    }
+  </script>
+</body>
+</html>
