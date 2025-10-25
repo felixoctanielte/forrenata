@@ -34,6 +34,8 @@
       animation: floaty 4s ease-in-out infinite;
       width: clamp(260px, 85vw, 400px);
       padding: clamp(1rem, 2vw, 1.5rem);
+      position: relative;
+      z-index: 5;
     }
     @keyframes floaty { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
 
@@ -50,10 +52,41 @@
       color: #ff6fae;
       font-size: 1.2rem;
       animation: float 4s linear infinite;
+      z-index: 1;
     }
     @keyframes float {
       0% { transform: translateY(0) rotate(0); opacity: 1 }
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0 }
+    }
+
+    /* KELINCI IMUT */
+    .bunny {
+      position: fixed;
+      font-size: 2rem;
+      z-index: 2;
+      animation: hop 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes hop {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      20% {
+        transform: translateX(20px) translateY(-10px);
+      }
+      40% {
+        transform: translateX(40px) translateY(0);
+      }
+      60% {
+        transform: translateX(60px) translateY(-8px);
+      }
+      80% {
+        transform: translateX(80px) translateY(0);
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+      }
     }
 
     /* RESPONSIVE OVERLAY */
@@ -319,7 +352,7 @@
       }
     }
 
-      // === 🐰 KELINCI GERAK-GERAK AUTO ===
+    // === 🐰 KELINCI GERAK-GERAK AUTO ===
     const bunnyEmojis = ['🐰','🐇','🥕','✨'];
     function spawnBunny() {
       const bunny = document.createElement('div');
@@ -337,4 +370,3 @@
   </script>
 </body>
 </html>
-
